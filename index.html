@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎤 English Spotlight Quest – 6th Grade Aulas 9-14</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --coral:#FF6B6B;--teal:#4ECDC4;--purple:#A855F7;
+  --gold:#FFD93D;--mint:#6BCB77;--blue:#4B7BE5;
+  --pink:#FF6BAE;--orange:#FF9A3C;--red:#E63946;
+}
+body{
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:linear-gradient(135deg,#0f0f1e 0%,#1a0f2e 50%,#0f1a1e 100%);
+  min-height:100vh;color:#fff;overflow-x:hidden;
+}
+
+/* BG */
+.bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.13;animation:drift 14s ease-in-out infinite alternate}
+.o1{width:420px;height:420px;background:var(--purple);top:-80px;left:-100px}
+.o2{width:360px;height:360px;background:var(--coral);top:40%;right:-80px;animation-delay:4s}
+.o3{width:280px;height:280px;background:var(--teal);bottom:-60px;left:35%;animation-delay:8s}
+.o4{width:200px;height:200px;background:var(--gold);top:20%;left:20%;animation-delay:2s}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(25px,18px)}}
+
+/* APP */
+#app{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:16px;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+
+.screen{display:none;width:100%;flex-direction:column;align-items:center}
+.screen.on{display:flex}
+
+/* CARD */
+.card{background:rgba(255,255,255,.07);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:28px;width:100%;text-align:center}
+
+/* TITLE */
+.spotlight{font-size:4.5em;display:block;margin:8px auto;animation:pulse-glow 2s ease-in-out infinite}
+@keyframes pulse-glow{0%,100%{filter:drop-shadow(0 0 10px rgba(255,217,61,.5))}50%{filter:drop-shadow(0 0 25px rgba(255,217,61,.9))}}
+.game-title{font-size:2.5em;font-weight:900;letter-spacing:2px;
+  background:linear-gradient(135deg,var(--gold),var(--coral),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.game-sub{font-size:.9em;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.intro-p{font-size:.95em;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:20px}
+
+.topic-tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:24px}
+.tag{padding:5px 14px;border-radius:30px;font-size:.8em;border:1px solid;font-weight:600}
+.ta{background:rgba(168,85,247,.2);border-color:var(--purple);color:var(--purple)}
+.tb{background:rgba(255,107,107,.2);border-color:var(--coral);color:var(--coral)}
+.tc{background:rgba(255,217,61,.2);border-color:var(--gold);color:var(--gold)}
+.td{background:rgba(78,205,196,.2);border-color:var(--teal);color:var(--teal)}
+.te{background:rgba(107,203,119,.2);border-color:var(--mint);color:var(--mint)}
+
+/* BUTTONS */
+.btn{display:inline-block;padding:13px 28px;border:none;border-radius:50px;
+  font-size:1em;font-weight:700;cursor:pointer;transition:all .25s;margin:6px;letter-spacing:.5px}
+.btn-start{background:linear-gradient(135deg,var(--gold),#d4900a);color:#1a1a00;font-size:1.1em;padding:15px 42px}
+.btn-start:hover{transform:scale(1.06);box-shadow:0 8px 30px rgba(255,217,61,.5)}
+.btn-next{background:linear-gradient(135deg,var(--purple),#6a1fc2);color:#fff;display:none;margin-top:10px}
+.btn-next:hover{transform:scale(1.04);box-shadow:0 5px 20px rgba(168,85,247,.5)}
+.btn-map{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:9px 18px;font-size:.85em}
+.btn-map:hover{background:rgba(255,255,255,.18)}
+.btn-check{background:linear-gradient(135deg,var(--gold),#d4900a);color:#1a1a00;font-weight:800;
+  border:none;border-radius:50px;padding:10px 28px;font-size:.95em;cursor:pointer;margin-top:8px;transition:all .2s}
+.btn-check:hover{transform:scale(1.04)}
+.btn-reset{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);
+  border-radius:50px;padding:10px 20px;font-size:.88em;cursor:pointer;margin-top:8px;margin-left:6px;transition:all .2s}
+.btn-reset:hover{background:rgba(255,255,255,.22)}
+
+/* HUD */
+.hud{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:14px;
+  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:10px 18px;gap:12px;flex-wrap:wrap}
+.hud-info{font-size:.9em;white-space:nowrap}
+.hud-info strong{color:var(--gold)}
+.xp-wrap{flex:1;min-width:90px}
+.xp-bg{background:rgba(255,255,255,.15);border-radius:8px;height:10px;overflow:hidden}
+.xp-fill{background:linear-gradient(90deg,var(--purple),var(--coral),var(--gold));height:100%;border-radius:8px;transition:width .5s}
+.xp-lbl{font-size:.7em;color:rgba(255,255,255,.5);margin-top:3px}
+.lives{font-size:1em;letter-spacing:2px;white-space:nowrap}
+
+/* WORLD MAP */
+.map-title{font-size:1.5em;font-weight:800;margin-bottom:4px}
+.map-sub{font-size:.88em;color:rgba(255,255,255,.6);margin-bottom:20px}
+.destinations{display:flex;flex-direction:column;gap:10px;width:100%}
+.dest-card{display:flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:14px 18px;cursor:pointer;transition:all .25s;text-align:left}
+.dest-card:hover:not(.locked){transform:translateX(5px)}
+.dest-card.done{border-color:var(--mint);background:rgba(107,203,119,.08)}
+.dest-card.locked{opacity:.4;cursor:not-allowed}
+.dest-icon{font-size:2.2em;flex-shrink:0}
+.dest-info{flex:1}
+.dest-info h3{font-size:.95em;font-weight:700;margin-bottom:2px}
+.dest-info p{font-size:.78em;color:rgba(255,255,255,.6)}
+.dest-stars{font-size:1.2em;margin-left:auto;letter-spacing:2px}
+
+/* MISSION BANNER */
+.mission-banner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:14px 20px;width:100%;margin-bottom:12px}
+.mb-icon{font-size:2.2em}
+.mb-text h2{font-size:1.1em;font-weight:700}
+.mb-text p{font-size:.8em;color:rgba(255,255,255,.7)}
+
+/* DOTS */
+.dots{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.25);transition:all .3s}
+.dot.active{transform:scale(1.3)}
+.dot.ok{background:var(--mint);border-color:var(--mint)}
+.dot.bad{background:var(--coral);border-color:var(--coral)}
+
+/* EXPLAIN BOX */
+.explain-box{background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);
+  border-radius:14px;padding:16px;margin-bottom:14px;width:100%;text-align:left}
+.explain-box h3{font-size:.88em;color:var(--purple);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.explain-box p{font-size:.88em;line-height:1.65;color:rgba(255,255,255,.85);white-space:pre-line}
+.explain-box .ex{background:rgba(0,0,0,.25);border-radius:8px;padding:8px 12px;
+  margin-top:8px;font-size:.87em;font-style:italic;color:var(--teal)}
+
+/* QUESTION BOX */
+.q-box{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:22px;width:100%;margin-bottom:14px}
+.q-num{font-size:.72em;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.q-text{font-size:1.1em;line-height:1.65;margin-bottom:8px}
+.q-hint{font-size:.82em;color:rgba(255,255,255,.5);font-style:italic;margin-top:5px}
+
+/* AUDIO PANEL */
+.audio-panel{background:rgba(78,205,196,.08);border:1px solid rgba(78,205,196,.3);
+  border-radius:14px;padding:14px;margin-bottom:12px;width:100%}
+.audio-lbl{font-size:.85em;color:var(--teal);margin-bottom:8px;font-weight:600}
+.audio-words{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.aud-btn{background:rgba(78,205,196,.15);border:1px solid rgba(78,205,196,.4);
+  color:var(--teal);border-radius:50px;padding:6px 16px;font-size:.88em;cursor:pointer;transition:all .2s}
+.aud-btn:hover{background:rgba(78,205,196,.3);transform:scale(1.05)}
+
+/* MCQ */
+.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-bottom:12px}
+.opt{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.14);
+  color:#fff;border-radius:12px;padding:14px 12px;font-size:.93em;line-height:1.4;
+  cursor:pointer;transition:all .2s;text-align:center}
+.opt:hover:not(:disabled){background:rgba(255,255,255,.15);border-color:var(--gold);transform:translateY(-2px)}
+.opt:disabled{cursor:default}
+.opt.ok{background:rgba(107,203,119,.3);border-color:var(--mint);animation:pop .4s}
+.opt.bad{background:rgba(255,107,107,.3);border-color:var(--coral)}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.07)}100%{transform:scale(1)}}
+
+/* WRITE */
+.write-area{width:100%;margin-bottom:12px}
+.write-lbl{font-size:.85em;color:var(--gold);margin-bottom:8px;font-weight:600;display:block}
+.write-inp{width:100%;padding:13px 16px;background:rgba(255,255,255,.07);
+  border:2px solid rgba(255,255,255,.2);border-radius:12px;
+  color:#fff;font-size:1em;outline:none;transition:border .2s;font-family:inherit}
+.write-inp:focus{border-color:var(--gold)}
+.write-inp.ok{border-color:var(--mint);background:rgba(107,203,119,.15)}
+.write-inp.bad{border-color:var(--coral);background:rgba(255,107,107,.15)}
+
+/* MATCHING (click-to-connect) */
+.match-area{width:100%;margin-bottom:12px}
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.match-col h4{font-size:.78em;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;text-align:center}
+.match-item{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.15);
+  border-radius:10px;padding:10px 12px;font-size:.9em;cursor:pointer;transition:all .2s;
+  text-align:center;margin-bottom:6px;user-select:none}
+.match-item:hover{background:rgba(255,255,255,.14);border-color:var(--gold)}
+.match-item.selected{border-color:var(--gold);background:rgba(255,217,61,.15);color:var(--gold)}
+.match-item.matched-ok{border-color:var(--mint);background:rgba(107,203,119,.2);color:var(--mint);cursor:default}
+.match-item.matched-bad{border-color:var(--coral);background:rgba(255,107,107,.15);color:var(--coral)}
+
+/* SCRAMBLE */
+.scr-area{width:100%;margin-bottom:12px}
+.scr-lbl{font-size:.85em;color:var(--purple);font-weight:600;margin-bottom:6px;display:block;text-align:left}
+.scr-ans{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+  background:rgba(0,0,0,.25);border:2px dashed rgba(255,255,255,.2);
+  border-radius:12px;padding:10px;min-height:48px;margin-bottom:8px;transition:border .3s}
+.scr-bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px;min-height:44px}
+.chip{background:rgba(168,85,247,.2);border:2px solid rgba(168,85,247,.5);
+  color:#d4a8ff;border-radius:50px;padding:6px 14px;font-size:.88em;
+  cursor:pointer;transition:all .2s;font-weight:600;user-select:none}
+.chip:hover{background:rgba(168,85,247,.4);transform:scale(1.05)}
+.chip.placed{background:rgba(78,205,196,.2);border-color:var(--teal);color:var(--teal)}
+
+/* FEEDBACK */
+.feedback{border-radius:12px;padding:13px 16px;font-size:.9em;line-height:1.55;
+  width:100%;margin-bottom:10px;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:rgba(107,203,119,.2);border:1px solid var(--mint);color:#a8f07a}
+.feedback.bad{background:rgba(255,107,107,.2);border:1px solid var(--coral);color:#ffa0a0}
+
+/* MISSION COMPLETE */
+.result-icon{font-size:5em;display:block;margin:10px auto}
+.result-title{font-size:1.8em;font-weight:900;margin-bottom:8px}
+.stars-big{font-size:2.5em;letter-spacing:6px;margin:12px 0}
+.result-msg{font-size:.95em;color:rgba(255,255,255,.75);margin-bottom:12px}
+.xp-big{font-size:3em;font-weight:900;color:var(--gold)}
+.xp-lbl2{font-size:.85em;color:rgba(255,255,255,.5);margin-bottom:20px}
+
+/* FINAL */
+.final-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.f-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
+  border-radius:12px;padding:10px 16px;font-size:.85em;text-align:center;min-width:90px}
+.f-chip span{display:block;font-size:1.3em;margin-bottom:3px}
+.badges-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+.badge{border-radius:30px;padding:5px 14px;font-size:.8em;border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.4)}
+.badge.on{background:rgba(255,217,61,.18);border-color:var(--gold);color:var(--gold)}
+
+/* CONFETTI */
+.cfp{position:fixed;pointer-events:none;z-index:9999;border-radius:2px;
+  animation:cffall 3s linear forwards}
+@keyframes cffall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+/* ANIM */
+.fade{animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:480px){
+  .opts-grid{grid-template-columns:1fr}
+  .match-cols{grid-template-columns:1fr}
+  .game-title{font-size:1.8em}
+}
+</style>
+</head>
+<body>
+<div class="bg-orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div></div>
+
+<div id="app">
+
+<!-- ═══════════ TITLE ═══════════ -->
+<div class="screen on" id="s-title">
+  <div class="card fade">
+    <span class="spotlight">🎤</span>
+    <div class="game-title">ENGLISH SPOTLIGHT QUEST</div>
+    <div class="game-sub">6th Grade · Aulas 9 a 14 · 2º Bimestre</div>
+    <p class="intro-p">
+      The spotlight is yours! Complete <strong>5 challenges</strong> to become an <strong>English Star</strong>.<br>
+      Describe people, write a script, present, order food, and discover English in Brazil! 🌟
+    </p>
+    <div class="topic-tags">
+      <span class="tag ta">🎭 Verb to be + Adjectives</span>
+      <span class="tag tb">📝 Presentation Script</span>
+      <span class="tag tc">🎙️ Presentation Phrases</span>
+      <span class="tag td">🍽️ Restaurant English</span>
+      <span class="tag te">🇧🇷 English in Brazil</span>
+    </div>
+    <button class="btn btn-start" onclick="startGame()">🎤 TAKE THE STAGE!</button>
+  </div>
+</div>
+
+<!-- ═══════════ MAP ═══════════ -->
+<div class="screen" id="s-map">
+  <div class="hud fade">
+    <div class="hud-info">⭐ <strong id="star-h">0</strong>/15</div>
+    <div class="xp-wrap">
+      <div class="xp-bg"><div class="xp-fill" id="xp-bar" style="width:0%"></div></div>
+      <div class="xp-lbl" id="xp-lbl">0 / 500 XP</div>
+    </div>
+    <div class="lives" id="lives-h">❤️❤️❤️</div>
+  </div>
+  <div class="card fade">
+    <div class="map-title">🎪 Spotlight Stages</div>
+    <div class="map-sub">Select your next challenge!</div>
+    <div class="destinations" id="dest-list"></div>
+  </div>
+</div>
+
+<!-- ═══════════ PLAY ═══════════ -->
+<div class="screen" id="s-play">
+  <div class="hud fade">
+    <div class="hud-info">⭐ <strong id="star-p">0</strong>/15</div>
+    <div class="xp-wrap">
+      <div class="xp-bg"><div class="xp-fill" id="xp-bar2" style="width:0%"></div></div>
+      <div class="xp-lbl" id="q-ctr">Q 1/5</div>
+    </div>
+    <div class="lives" id="lives-p">❤️❤️❤️</div>
+    <button class="btn btn-map" onclick="goMap()">🗺️ Map</button>
+  </div>
+  <div id="m-banner" style="width:100%" class="fade"></div>
+  <div class="dots fade" id="dots"></div>
+  <div id="explain-area" style="width:100%"></div>
+  <div id="q-area" style="width:100%" class="fade"></div>
+  <div id="feedback" class="feedback"></div>
+  <button class="btn btn-next" id="btn-next" onclick="nextQ()">NEXT ➤</button>
+</div>
+
+<!-- ═══════════ MISSION COMPLETE ═══════════ -->
+<div class="screen" id="s-done">
+  <div class="card fade" style="text-align:center">
+    <span class="result-icon" id="done-icon">🎉</span>
+    <div class="result-title" id="done-title">Stage Cleared!</div>
+    <div class="stars-big" id="done-stars"></div>
+    <div class="result-msg" id="done-msg"></div>
+    <div class="xp-big" id="done-xp"></div>
+    <div class="xp-lbl2">XP earned this stage</div>
+    <button class="btn btn-start" onclick="goMap()">🗺️ Back to Stages</button>
+  </div>
+</div>
+
+<!-- ═══════════ FINAL ═══════════ -->
+<div class="screen" id="s-final">
+  <div class="card fade" style="text-align:center">
+    <span class="result-icon">🏆</span>
+    <div class="result-title" style="color:var(--gold)">ENGLISH STAR!</div>
+    <div class="result-msg">You completed all 5 stages — amazing!</div>
+    <div class="xp-big" id="f-xp"></div>
+    <div class="xp-lbl2">Total XP · <span id="f-stars"></span> stars</div>
+    <div class="final-grid" id="f-grid"></div>
+    <div class="badges-row" id="f-badges"></div>
+    <div class="result-msg" id="f-note" style="margin-bottom:22px"></div>
+    <button class="btn btn-start" onclick="restart()">🔄 Play Again</button>
+    <button class="btn btn-map" onclick="goMap()">📊 See Stages</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ════ AUDIO ════════════════════════════════════
+function speak(t){
+  if(!window.speechSynthesis)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang='en-US';u.rate=0.85;u.pitch=1;
+  speechSynthesis.speak(u);
+}
+
+// ════ DATA ════════════════════════════════════
+const MISSIONS=[
+
+// ──────────────────────────────────────────────
+// STAGE 1 — Verb to be + Adjectives (Aula 9)
+// ──────────────────────────────────────────────
+{id:0,title:'🎭 Stage 1: Describe & Shine',sub:'Verb to be + Adjectives (Aula 9)',icon:'🎭',
+ color:'#A855F7',bg:'linear-gradient(135deg,rgba(168,85,247,.4),rgba(255,107,107,.2))',
+ done:false,score:0,stars:0,
+ qs:[
+  {type:'audio-mcq',
+   explain:{
+     t:'📌 Verb TO BE — am / is / are',
+     b:'The verb TO BE changes with the subject:\n• I → AM  → "I am athletic."\n• He / She / It → IS  → "She is very creative."\n• You / We / They → ARE  → "They are friendly."\n\nAdjectives describe people & animals: cuddly · athletic · friendly · relaxed · funny · creative · lazy · intelligent · playful · persevering',
+     ex:'"Carlos is very friendly." / "These girls are athletic." / "I am 12 years old."'
+   },
+   audio:['I am athletic','She is creative','They are friendly','My cat is cuddly','He is persevering'],
+   q:'Complete: "My cat ___ cuddly."',h:'My cat = it → which form of to be?',
+   opts:['am','are','is','be'],a:2,
+   exp:'✅ My cat IS cuddly. He/She/It → IS!'
+  },
+  {type:'mcq',
+   q:'Complete: "These girls ___ athletic." (Aula 9, Activity 1)',
+   h:'These girls = they (plural) → am / is / are?',
+   opts:['is','am','are','be'],a:2,
+   exp:'✅ These girls ARE athletic. You/We/They → ARE!'
+  },
+  {type:'write',
+   q:'Complete: "My brother ___ a relaxed guy."',
+   h:'My brother = he → am / is / are?',
+   lbl:'Type the correct verb:',ph:'is',
+   ans:['is'],
+   exp:'✅ My brother IS a relaxed guy. He/She/It → IS!'
+  },
+  {type:'scramble',
+   q:'Put the words in order to make a sentence:',
+   words:['Lucas','is','my','friend','.','He','is','smart','and','loyal','.'],
+   answer:'Lucas is my friend . He is smart and loyal .',
+   exp:'✅ Lucas IS my friend. He IS smart and loyal. — Example from Aula 9!'
+  },
+  {type:'mcq',
+   q:'Choose the CORRECT sentence:',
+   h:'Watch the subject and the correct form of to be...',
+   opts:['My cousins is very funny.','My cousins are very funny.','My cousins am very funny.','My cousins be very funny.'],
+   a:1,
+   exp:'✅ My cousins ARE very funny. Cousins = they (plural) → ARE!'
+  }
+ ]
+},
+
+// ──────────────────────────────────────────────
+// STAGE 2 — Script & Planning (Aulas 10-11)
+// ──────────────────────────────────────────────
+{id:1,title:'📝 Stage 2: Script Writer',sub:'Planning Your Presentation (Aulas 10-11)',icon:'📝',
+ color:'#FF6B6B',bg:'linear-gradient(135deg,rgba(255,107,107,.4),rgba(255,154,60,.2))',
+ done:false,score:0,stars:0,
+ qs:[
+  {type:'audio-mcq',
+   explain:{
+     t:'📋 Planning an Oral Presentation',
+     b:'To plan a great presentation, think about 3 things:\n\n1. FINALIDADE (Purpose) — Why are you speaking? To inform? To teach?\n2. INTERLOCUTORES (Audience) — Who is listening? Classmates? Teachers?\n3. CONTEÚDO (Content) — What will you say? Write a SCRIPT!\n\nA SCRIPT is a written guide with what you plan to say. It helps you:\n• Organize your ideas in order\n• Choose the right words\n• Not forget important parts',
+     ex:'"My special person is Joana, she is my cousin and I like her because she is intelligent and funny."'
+   },
+   audio:['Today I want to talk about a special person','My special person is my cousin Joana','She is intelligent and funny'],
+   q:'What is a SCRIPT in the context of an oral presentation?',
+   h:'From Aula 10 — it is a text that...',
+   opts:['A list of vocabulary words','A written guide for what you plan to say','A drawing of your topic','A translation of your presentation'],
+   a:1,
+   exp:'✅ A SCRIPT is a written guide for what you plan to say — it organizes your ideas and helps you not forget!'
+  },
+  {type:'mcq',
+   q:'"FINALIDADE" means the ___ of your presentation.',
+   h:'Por que você vai falar?',
+   opts:['audience (who listens)','content (what to say)','purpose / objective (why you speak)','conclusion (how to end)'],
+   a:2,
+   exp:'✅ FINALIDADE = PURPOSE / OBJECTIVE! It answers: why are you speaking? To inform? To teach? To entertain?'
+  },
+  {type:'mcq',
+   q:'"INTERLOCUTORES" means your ___.',
+   h:'Para quem você vai falar?',
+   opts:['purpose','script','audience (who is listening)','conclusion'],
+   a:2,
+   exp:'✅ INTERLOCUTORES = AUDIENCE — the people who are listening to you! Classmates? Teachers? Adults?'
+  },
+  {type:'write',
+   q:'In the Aula 10 example script, what is Joana\'s relationship to the speaker?\n"My special person is Joana, she is my ___..."',
+   h:'She is my... (what family/friend relation?)',
+   lbl:'Type the answer:',ph:'cousin',
+   ans:['cousin'],
+   exp:'✅ COUSIN! "My special person is Joana, she is my COUSIN." From the model script in Aula 10.'
+  },
+  {type:'scramble',
+   q:'Arrange the parts of the script in the correct order:',
+   words:['Characteristics','Name','Relationship','Age','Likes','Dislikes','Family'],
+   answer:'Name Relationship Age Family Characteristics Likes Dislikes',
+   exp:'✅ Great! A complete script includes: Name → Relationship → Age → Family → Characteristics → Likes → Dislikes. (From Aula 10 table)'
+  }
+ ]
+},
+
+// ──────────────────────────────────────────────
+// STAGE 3 — Presentation Phrases (Aula 11)
+// ──────────────────────────────────────────────
+{id:2,title:'🎙️ Stage 3: On the Stage!',sub:'Presentation Phrases (Aulas 11-12)',icon:'🎙️',
+ color:'#FFD93D',bg:'linear-gradient(135deg,rgba(255,217,61,.35),rgba(230,57,70,.2))',
+ done:false,score:0,stars:0,
+ qs:[
+  {type:'audio-mcq',
+   explain:{
+     t:'🎙️ Presentation Structure',
+     b:'A great English presentation has 4 parts:\n\n1. GREETING  → "Good morning!" / "Hi everyone!" / "Hello!"\n2. PERSONAL INTRODUCTION → "My name is..." / "I am..."\n3. TOPIC INTRODUCTION → "Today I want to talk about..." / "Today I am going to present..."\n4. CONCLUSION → "That\'s it. Thanks for your attention." / "Thank you for listening."\n5. FAREWELL → "Goodbye!" / "Bye!" / "See you!"',
+     ex:'"Good morning, everybody! My name is Gabriela and today I\'m going to talk about a special person to me. Let\'s go!"'
+   },
+   audio:['Good morning everybody','My name is Gabriela','Today I am going to talk about a special person','Thank you for listening','Goodbye see you'],
+   q:'"Good morning, everybody! My name is Carlos." — What part of the presentation is this?',
+   h:'It starts with a greeting and introduces the speaker...',
+   opts:['Conclusion','Farewell','Greeting + Personal Introduction','Topic Introduction'],
+   a:2,
+   exp:'✅ GREETING + PERSONAL INTRODUCTION! "Good morning" = greeting. "My name is Carlos" = personal introduction.'
+  },
+  {type:'mcq',
+   q:'"Today I am going to present a very special person to me." — What part is this?',
+   h:'The speaker is introducing what they will talk about...',
+   opts:['Greeting','Farewell','Personal Introduction','Topic Introduction'],
+   a:3,
+   exp:'✅ TOPIC INTRODUCTION! "Today I am going to present/talk about..." introduces the topic of the presentation.'
+  },
+  {type:'mcq',
+   q:'"That\'s the end of my talk. Thanks for listening. Bye-bye!" — What parts are these?',
+   h:'Look at the two different functions...',
+   opts:['Greeting + Topic Introduction','Personal Introduction + Conclusion','Conclusion + Farewell','Topic Introduction + Farewell'],
+   a:2,
+   exp:'✅ CONCLUSION + FAREWELL! "Thanks for listening" = conclusion. "Bye-bye" = farewell! (From Aula 11 example)'
+  },
+  {type:'write',
+   q:'Complete this conclusion phrase: "I hope you have ___ my presentation." (past participle of enjoy)',
+   h:'enjoyed / enjoy / enjoys?',
+   lbl:'Type the missing word:',ph:'enjoyed',
+   ans:['enjoyed'],
+   exp:'✅ "I hope you have ENJOYED my presentation." — Past participle of enjoy = enjoyed!'
+  },
+  {type:'scramble',
+   q:'Put the presentation parts in the correct ORDER:',
+   words:['Farewell','Conclusion','Topic Introduction','Greeting','Personal Introduction'],
+   answer:'Greeting Personal Introduction Topic Introduction Conclusion Farewell',
+   exp:'✅ Correct order: GREETING → PERSONAL INTRODUCTION → TOPIC INTRODUCTION → (content) → CONCLUSION → FAREWELL!'
+  }
+ ]
+},
+
+// ──────────────────────────────────────────────
+// STAGE 4 — Restaurant English (Aula 13)
+// ──────────────────────────────────────────────
+{id:3,title:'🍽️ Stage 4: Restaurant English',sub:'Ordering Food (Aula 13)',icon:'🍽️',
+ color:'#4ECDC4',bg:'linear-gradient(135deg,rgba(78,205,196,.4),rgba(107,203,119,.2))',
+ done:false,score:0,stars:0,
+ qs:[
+  {type:'audio-mcq',
+   explain:{
+     t:'🍽️ Restaurant Vocabulary',
+     b:'Types of menu items:\n• APPETIZER (entrada) — salad, fries, soup\n• MAIN DISH (prato principal) — burger, pizza, wrap, chicken steak, pasta\n• SOFT DRINK (bebida não-alcoólica) — water, juice, soda, ginger ale\n• DESSERT (sobremesa) — ice cream, smoothie, milkshake\n\nTip: Many restaurant words in Brazil come from English!',
+     ex:'"I\'d like a salad for my appetizer, a wrap for my main dish, soda to drink, and ice cream for dessert, please!"'
+   },
+   audio:['appetizer','main dish','soft drink','dessert','wrap','burger','smoothie','milkshake','ginger ale'],
+   q:'In the Aula 13 dialogue, what does Jane order for her APPETIZER?',
+   h:'An appetizer is the entrada — first course...',
+   opts:['fries','wrap','salad','pasta'],
+   a:2,
+   exp:'✅ Jane orders a SALAD for her appetizer! (From the listening dialogue in Aula 13)'
+  },
+  {type:'mcq',
+   q:'Jane\'s MAIN DISH in the dialogue is a ___.',
+   h:'Main dish = prato principal...',
+   opts:['burger','pizza','wrap','chicken steak'],
+   a:2,
+   exp:'✅ Jane orders a WRAP for her main dish! A wrap is a type of sandwich rolled in flatbread.'
+  },
+  {type:'mcq',
+   q:'Jane drinks a ___ (SOFT DRINK).',
+   h:'Soft drink = bebida não-alcoólica...',
+   opts:['water','juice','soda','ginger ale'],
+   a:2,
+   exp:'✅ Jane orders a SODA! Soda = refrigerante. Ginger ale is also a soft drink (type of soda with ginger).'
+  },
+  {type:'write',
+   q:'What is the English word for "sobremesa"? (the last course of a meal)',
+   h:'Jane orders ice cream for her...',
+   lbl:'Type the English word:',ph:'dessert',
+   ans:['dessert','deserts','desert'],
+   exp:'✅ DESSERT! Sobremesa = dessert. Jane orders ICE CREAM for her dessert.'
+  },
+  {type:'mcq',
+   q:'Looking at the menu from Aula 13, which of these is an English word found on Brazilian restaurant menus?',
+   h:'English words appear on many Brazilian menus...',
+   opts:['feijoada','coxinha','pão de queijo','burger'],
+   a:3,
+   exp:'✅ BURGER! It\'s an English word used in Brazil. Feijoada, coxinha and pão de queijo are Portuguese/Brazilian words!'
+  }
+ ]
+},
+
+// ──────────────────────────────────────────────
+// STAGE 5 — English in Brazil (Aula 14)
+// ──────────────────────────────────────────────
+{id:4,title:'🇧🇷 Stage 5: English in Brazil',sub:'Anglicisms in Daily Life (Aula 14)',icon:'🇧🇷',
+ color:'#6BCB77',bg:'linear-gradient(135deg,rgba(107,203,119,.4),rgba(255,217,61,.2))',
+ done:false,score:0,stars:0,
+ qs:[
+  {type:'audio-mcq',
+   explain:{
+     t:'🇧🇷 English Words Used in Brazil!',
+     b:'Many English words are used in Brazil every day — we call them ANGLICISMS:\n\n🍔 FOOD: cupcake · burger · hot dog · picles · cheddar\n⚽ SPORTS: basquete (basketball) · vôlei (volleyball) · handebol · raquete\n💻 TECHNOLOGY: mouse · login · e-mail · clicar (to click) · escanear (to scan)\n\nEven in advertisements, English makes products seem more modern and international!',
+     ex:'"Mega Bacon Burger — Yummy!" (real Brazilian menu from Aula 14)'
+   },
+   audio:['cupcake','hot dog','login','mouse','basketball','volleyball'],
+   q:'The word MOUSE (used in Brazil for computer mouse) is an example of an English word used in which category?',
+   h:'Mouse, login, e-mail... what do they have in common?',
+   opts:['Food','Sports','Technology','Music'],
+   a:2,
+   exp:'✅ TECHNOLOGY! Mouse, login, e-mail, click (clicar) — all technology words from English used in Brazil!'
+  },
+  {type:'mcq',
+   q:'"BASQUETE" in Brazil comes from which English word?',
+   h:'B-A-S-K-E-T...',
+   opts:['baseball','basketball','badminton','boxing'],
+   a:1,
+   exp:'✅ BASKETBALL! "Basquete" is how Brazilian Portuguese adapted "basketball". Many sports words in Brazil come from English!'
+  },
+  {type:'mcq',
+   q:'In the Aula 14 flyer: "Mega Bacon Burger — Yummy!" — What does YUMMY mean?',
+   h:'Yummy is an informal adjective about food...',
+   opts:['expensive','ugly','delicious/tasty','fast'],
+   a:2,
+   exp:'✅ YUMMY means DELICIOUS! It\'s an informal English word meaning gostoso/delicioso. From the real Brazilian burger ad in Aula 14!'
+  },
+  {type:'write',
+   q:'An English word for a sport played in Brazil with a net and a ball, where players jump to hit it: ___ (vôlei in Portuguese)',
+   h:'V-O-L-L-E-Y...',
+   lbl:'Type the English word:',ph:'volleyball',
+   ans:['volleyball','volley ball','voleibol'],
+   exp:'✅ VOLLEYBALL! "Vôlei" or "voleibol" comes from the English word VOLLEYBALL. Another anglicism in Brazilian sports!'
+  },
+  {type:'mcq',
+   q:'Why do many Brazilian ads use English words, according to the class discussion in Aula 14?',
+   h:'Think about the cultural perception...',
+   opts:[
+     'Because Brazilians only speak English',
+     'To make products seem more modern and international',
+     'Because Portuguese has no words for those products',
+     'Because English ads are cheaper to make'
+   ],
+   a:1,
+   exp:'✅ To make products seem MORE MODERN AND INTERNATIONAL! Many people associate English with quality and modernity — that\'s why ads use English words!'
+  }
+ ]
+}
+
+];
+
+// ════ STATE ════════════════════════════════════
+let totalXP=0,totalStars=0,lives=3;
+let curM=null,curQ=0,mStars=0,mWrong=0,answered=false;
+let scrAns=[],scrRem=[];
+let matchSelected=null,matchPairs={};
+
+// ════ UTILS ════════════════════════════════════
+function $(id){return document.getElementById(id)}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$(id).classList.add('on')}
+function syncHUD(){
+  const pct=Math.min((totalXP/500)*100,100);
+  ['xp-bar','xp-bar2'].forEach(id=>{const e=$(id);if(e)e.style.width=pct+'%'});
+  $('xp-lbl').textContent=totalXP+' / 500 XP';
+  ['star-h','star-p'].forEach(id=>{const e=$(id);if(e)e.textContent=totalStars});
+  const h='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(Math.max(0,3-lives));
+  ['lives-h','lives-p'].forEach(id=>{const e=$(id);if(e)e.textContent=h});
+}
+
+// ════ SCREENS ════════════════════════════════════
+function startGame(){showScreen('s-map');renderMap();syncHUD()}
+
+function goMap(){
+  renderMap();showScreen('s-map');syncHUD();
+  if(MISSIONS.every(m=>m.done))setTimeout(showFinal,400);
+}
+
+function renderMap(){
+  const list=$('dest-list');list.innerHTML='';
+  MISSIONS.forEach((m,i)=>{
+    const locked=i>0&&!MISSIONS[i-1].done;
+    const d=document.createElement('div');
+    d.className='dest-card'+(m.done?' done':'')+(locked?' locked':'');
+    const st=m.done?('⭐'.repeat(m.stars)+'☆'.repeat(3-m.stars)):'☆☆☆';
+    const info=m.done?`${m.score}/5 correct · ${m.stars}★`:(locked?'Complete previous stage':'Ready — click to play!');
+    d.innerHTML=`<span class="dest-icon">${m.icon}</span>
+      <div class="dest-info"><h3>${m.title}</h3><p>${info}</p></div>
+      <div class="dest-stars">${locked?'🔒':st}</div>`;
+    if(!locked)d.onclick=()=>startMission(i);
+    list.appendChild(d);
+  });
+}
+
+// ════ MISSION ════════════════════════════════════
+function startMission(i){
+  curM=MISSIONS[i];curQ=0;mStars=3;mWrong=0;answered=false;
+  scrAns=[];scrRem=[];matchSelected=null;matchPairs={};
+  renderBanner();renderDots();renderQuestion();
+  showScreen('s-play');syncHUD();
+}
+
+function renderBanner(){
+  $('m-banner').innerHTML=`
+    <div class="mission-banner fade" style="background:${curM.bg}">
+      <span class="mb-icon">${curM.icon}</span>
+      <div class="mb-text"><h2>${curM.title}</h2><p>${curM.sub}</p></div>
+    </div>`;
+}
+
+function renderDots(){
+  const c=$('dots');c.innerHTML='';
+  curM.qs.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='dot'+(i===curQ?' active':'');
+    if(i===curQ){d.style.background=curM.color;d.style.borderColor=curM.color;}
+    d.id='dt'+i;c.appendChild(d);
+  });
+  $('q-ctr').textContent=`Q ${curQ+1}/${curM.qs.length}`;
+}
+
+function renderQuestion(){
+  answered=false;
+  $('btn-next').style.display='none';
+  const fb=$('feedback');fb.className='feedback';fb.textContent='';
+  const q=curM.qs[curQ];
+
+  // Explain box — only on first question
+  const ea=$('explain-area');
+  if(curQ===0&&q.explain){
+    const e=q.explain;
+    ea.innerHTML=`<div class="explain-box fade">
+      <h3>${e.t}</h3><p>${e.b}</p>
+      <div class="ex">${e.ex}</div>
+    </div>`;
+  } else {ea.innerHTML='';}
+
+  const qa=$('q-area');
+
+  if(q.type==='audio-mcq'){
+    qa.innerHTML=audioPanel(q.audio)+qBox(q)+optsGrid(q);
+  } else if(q.type==='mcq'){
+    qa.innerHTML=qBox(q)+optsGrid(q);
+  } else if(q.type==='write'){
+    qa.innerHTML=qBox(q)+`
+      <div class="write-area fade">
+        <label class="write-lbl">${q.lbl}</label>
+        <input class="write-inp" id="wi" type="text" placeholder="${q.ph}" autocomplete="off" autocorrect="off" spellcheck="false">
+        <br><button class="btn-check" onclick="checkWrite()">✅ Check</button>
+      </div>`;
+    const inp=$('wi');if(inp)inp.addEventListener('keydown',e=>{if(e.key==='Enter')checkWrite()});
+  } else if(q.type==='scramble'){
+    scrAns=[];scrRem=[...q.words];
+    qa.innerHTML=qBox(q)+`
+      <div class="scr-area fade">
+        <span class="scr-lbl">📌 Build the answer — click words to add/remove:</span>
+        <div class="scr-ans" id="scr-ans"></div>
+        <div class="scr-bank" id="scr-bank">${bankHTML(scrRem)}</div>
+        <button class="btn-check" onclick="checkScramble()">✅ Check</button>
+        <button class="btn-reset" onclick="resetScramble()">↩ Reset</button>
+      </div>`;
+  }
+}
+
+function audioPanel(words){
+  const btns=words.map(w=>`<button class="aud-btn" onclick="speak('${w.replace(/'/g,"\\'")}')">🔊 ${w}</button>`).join('');
+  return `<div class="audio-panel fade">
+    <div class="audio-lbl">🎧 Click to LISTEN — practice the pronunciation!</div>
+    <div class="audio-words">${btns}</div>
+  </div>`;
+}
+
+function qBox(q){
+  return `<div class="q-box fade">
+    <div class="q-num" style="color:${curM.color}">Question ${curQ+1} of ${curM.qs.length}</div>
+    <div class="q-text">${q.q}</div>
+    ${q.h?`<div class="q-hint">💡 ${q.h}</div>`:''}
+  </div>`;
+}
+
+function optsGrid(q){
+  return `<div class="opts-grid fade" id="og">
+    ${q.opts.map((o,i)=>`<button class="opt" id="op${i}" onclick="pickOpt(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+  </div>`;
+}
+
+function bankHTML(words){
+  return words.map((w,i)=>`<span class="chip" id="ck${i}" onclick="addWord('${w.replace(/'/g,"\\'")}',${i})">${w}</span>`).join('');
+}
+
+// ════ ANSWER HANDLERS ════════════════════════════
+function pickOpt(sel){
+  if(answered)return;answered=true;
+  const q=curM.qs[curQ];const ok=sel===q.a;
+  q.opts.forEach((_,i)=>{
+    const b=$('op'+i);if(!b)return;
+    b.disabled=true;
+    if(i===q.a)b.classList.add('ok');
+    else if(i===sel)b.classList.add('bad');
+  });
+  resolve(ok,q.exp);
+}
+
+function checkWrite(){
+  if(answered)return;
+  const q=curM.qs[curQ];
+  const inp=$('wi');if(!inp)return;
+  const val=inp.value.trim().toLowerCase().replace(/['']/g,"'");
+  const ok=q.ans.some(a=>val===a.toLowerCase().replace(/['']/g,"'"))||val.length>4;
+  // For free answers use length check
+  const strict=q.ans[0]!=='__FREE__';
+  const realOk=strict?q.ans.some(a=>val===a.toLowerCase().replace(/['']/g,"'")):val.length>3;
+  inp.classList.add(realOk?'ok':'bad');inp.disabled=true;answered=true;
+  resolve(realOk,q.exp);
+}
+
+function addWord(word,idx){
+  const chip=$('ck'+idx);if(!chip||chip.style.visibility==='hidden')return;
+  chip.style.visibility='hidden';
+  scrAns.push(word);
+  const ans=$('scr-ans');
+  ans.innerHTML=scrAns.map((w,i)=>`<span class="chip placed" onclick="removeWord(${i})">${w}</span>`).join('');
+}
+
+function removeWord(idx){
+  const word=scrAns[idx];scrAns.splice(idx,1);
+  const bank=$('scr-bank');
+  let restored=false;
+  bank.querySelectorAll('.chip').forEach(c=>{
+    if(!restored&&c.textContent===word&&c.style.visibility==='hidden'){c.style.visibility='visible';restored=true;}
+  });
+  $('scr-ans').innerHTML=scrAns.map((w,i)=>`<span class="chip placed" onclick="removeWord(${i})">${w}</span>`).join('');
+}
+
+function resetScramble(){
+  scrAns=[];
+  const bank=$('scr-bank');
+  bank.querySelectorAll('.chip').forEach(c=>c.style.visibility='visible');
+  $('scr-ans').innerHTML='';
+}
+
+function checkScramble(){
+  if(answered)return;
+  const q=curM.qs[curQ];
+  const formed=scrAns.join(' ');
+  const ok=formed.toLowerCase()===q.answer.toLowerCase();
+  answered=true;
+  const ans=$('scr-ans');
+  ans.style.border=`2px solid ${ok?'var(--mint)':'var(--coral)'}`;
+  ans.style.background=ok?'rgba(107,203,119,.15)':'rgba(255,107,107,.15)';
+  resolve(ok,q.exp);
+}
+
+function resolve(ok,exp){
+  const dot=$('dt'+curQ);
+  if(dot){dot.classList.remove('active');dot.classList.add(ok?'ok':'bad');}
+  if(!ok){mStars=Math.max(0,mStars-1);lives=Math.max(0,lives-1);mWrong++;}
+  else{totalXP+=20;}
+  syncHUD();
+  const fb=$('feedback');
+  fb.textContent=(ok?'🎉 ':'❌ ')+exp;
+  fb.className='feedback show '+(ok?'ok':'bad');
+  const nb=$('btn-next');
+  nb.style.display='inline-block';
+  nb.textContent=curQ<curM.qs.length-1?'NEXT ➤':'🏁 FINISH STAGE';
+}
+
+function nextQ(){
+  curQ++;
+  if(curQ>=curM.qs.length){finishMission();return;}
+  const d=$('dt'+curQ);
+  if(d&&!d.classList.contains('ok')&&!d.classList.contains('bad')){
+    d.classList.add('active');d.style.background=curM.color;d.style.borderColor=curM.color;
+  }
+  $('q-ctr').textContent=`Q ${curQ+1}/${curM.qs.length}`;
+  renderQuestion();
+}
+
+// ════ MISSION COMPLETE ════════════════════════
+function finishMission(){
+  curM.done=true;curM.score=5-mWrong;curM.stars=mStars;
+  totalStars+=mStars;
+  const xp=curM.score*20;
+  let icon,title;
+  if(mStars===3){icon='🏆';title='PERFECT! 3 Stars!'}
+  else if(mStars===2){icon='🎉';title='Well done! 2 Stars!'}
+  else if(mStars===1){icon='👍';title='Good try! 1 Star!'}
+  else{icon='💪';title='Stage cleared! Keep going!'}
+  $('done-icon').textContent=icon;
+  $('done-title').textContent=title;
+  $('done-stars').textContent='⭐'.repeat(mStars)+'☆'.repeat(3-mStars);
+  $('done-msg').textContent=`"${curM.title}" — ${curM.score}/5 correct`;
+  $('done-xp').textContent='+'+xp+' XP';
+  if(mStars>=2)confetti();
+  showScreen('s-done');syncHUD();
+}
+
+// ════ FINAL ════════════════════════════════════
+function showFinal(){
+  const pct=(totalStars/15)*100;
+  let note;
+  if(pct>=90)note='🌟 INCREDIBLE! You are a true English Star!';
+  else if(pct>=70)note='⭐ GREAT JOB! Almost perfect!';
+  else if(pct>=50)note='👍 GOOD EFFORT! Practice the stages with fewer stars!';
+  else note='📚 Keep studying! Review the lessons and try again!';
+  $('f-xp').textContent=totalXP+' XP';
+  $('f-stars').textContent=totalStars+'/15 stars';
+  $('f-note').textContent=note;
+  const g=$('f-grid');g.innerHTML='';
+  MISSIONS.forEach(m=>{
+    const d=document.createElement('div');d.className='f-chip';
+    d.innerHTML=`<span>${m.icon}</span><strong>${m.stars}★</strong><br><small>Stage ${m.id+1}</small>`;
+    g.appendChild(d);
+  });
+  const BADGES=[
+    {c:totalStars>=3,l:'🎭 Adjective Star'},
+    {c:totalStars>=6,l:'📝 Script Writer'},
+    {c:totalStars>=9,l:'🎙️ Presenter'},
+    {c:totalStars>=12,l:'🍽️ Food Explorer'},
+    {c:totalStars>=15,l:'🏆 English Champion'},
+  ];
+  const bc=$('f-badges');bc.innerHTML='';
+  BADGES.forEach(b=>{
+    const s=document.createElement('span');
+    s.className='badge'+(b.c?' on':'');s.textContent=b.l;bc.appendChild(s);
+  });
+  confetti();showScreen('s-final');syncHUD();
+}
+
+// ════ CONFETTI ════════════════════════════════
+function confetti(){
+  const cols=['#FF6B6B','#FFD93D','#4ECDC4','#A855F7','#6BCB77','#FF6BAE','#FF9A3C'];
+  for(let i=0;i<70;i++){
+    setTimeout(()=>{
+      const p=document.createElement('div');p.className='cfp';
+      const sz=Math.random()*10+5;
+      p.style.cssText=`left:${Math.random()*100}vw;background:${cols[Math.floor(Math.random()*cols.length)]};width:${sz}px;height:${sz}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${Math.random()*2+2.5}s;animation-delay:${Math.random()*.6}s;`;
+      document.body.appendChild(p);setTimeout(()=>p.remove(),4500);
+    },i*35);
+  }
+}
+
+// ════ RESTART ════════════════════════════════
+function restart(){
+  MISSIONS.forEach(m=>{m.done=false;m.score=0;m.stars=0;});
+  totalXP=0;totalStars=0;lives=3;
+  curM=null;curQ=0;mStars=0;mWrong=0;
+  syncHUD();goMap();
+}
+</script>
+</body>
+</html>
